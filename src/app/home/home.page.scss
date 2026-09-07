@@ -1,0 +1,20 @@
+#container {
+  text-align: center;
+  margin: 16px;
+}
+
+.done {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.empty {
+  text-align: center;
+  color: #888;
+  margin-top: 24px;
+}
+
+ion-buttons ion-button {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}

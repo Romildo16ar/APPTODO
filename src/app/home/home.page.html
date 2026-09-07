@@ -1,0 +1,67 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Tarefas </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Tarefas</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <ion-input
+      placeholder="Nova tarefa"
+      [(ngModel)]="newTitle"
+      (keyup.enter)="addTodo()"
+    ></ion-input>
+    <ion-button expand="block" (click)="addTodo()">Adicionar</ion-button>
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let todo of todos">
+      <!-- Modo edicao (Update) -->
+      <ng-container *ngIf="editId === todo.id; else viewMode">
+        <ion-input
+          [(ngModel)]="editTitle"
+          (keyup.enter)="saveEdit()"
+          (keyup.escape)="cancelEdit()"
+        ></ion-input>
+        <ion-buttons slot="end">
+          <ion-button color="success" (click)="saveEdit()">
+            <ion-icon slot="start" name="checkmark-outline"></ion-icon>
+            SALVAR
+          </ion-button>
+          <ion-button color="medium" (click)="cancelEdit()">
+            <ion-icon slot="start" name="close-outline"></ion-icon>
+            CANCELAR
+          </ion-button>
+        </ion-buttons>
+      </ng-container>
+
+      <!-- Modo leitura -->
+      <ng-template #viewMode>
+        <ion-checkbox
+          slot="start"
+          [checked]="todo.done"
+          (ionChange)="toggleDone(todo.id)"
+        ></ion-checkbox>
+        <ion-label [class.done]="todo.done">{{ todo.title }}</ion-label>
+        <ion-buttons slot="end">
+          <ion-button (click)="startEdit(todo)">
+            <ion-icon slot="start" name="create-outline"></ion-icon>
+            EDITAR
+          </ion-button>
+          <ion-button color="danger" (click)="confirmDelete(todo)">
+            <ion-icon slot="start" name="trash-outline"></ion-icon>
+            EXCLUIR
+          </ion-button>
+        </ion-buttons>
+      </ng-template>
+    </ion-item>
+  </ion-list>
+
+  <p class="empty" *ngIf="todos.length === 0">Nenhuma tarefa cadastrada.</p>
+</ion-content>
