@@ -12,16 +12,32 @@ Criado para a pós-graduação em Desenvolvimento Web e Mobile do IFSEMG. Todos 
 > Se tudo correr bem o projeto deve abrir no navegador seu principal.
 
 
-Mensagens abaixo foram criadas automaticamente quando da criação do projeto com Ionic.
+## Tarefa avaliativa — CRUD completo
+
+O projeto entregue implementava apenas o **Create** (adicionar tarefa) e o **Read**
+(listar tarefas). Como tarefa avaliativa, implementei as duas letras que faltavam:
+
+- **U — Update (Editar):** o botão `EDITAR` troca o texto da tarefa por um campo de
+  edição na própria linha da lista, com os botões `SALVAR` e `CANCELAR`. Também é
+  possível salvar com **Enter** ou cancelar com **Esc**.
+- **D — Delete (Excluir):** o botão `EXCLUIR` remove a tarefa, pedindo confirmação
+  antes através de um `ion-alert`.
+
+Aparência da lista:
 
 ```
-Your Ionic app is ready! Follow these next steps:
-
-- Go to your new project: cd .\ionic-iontodo-v7
-- Run ionic serve within the app directory to see your app in the browser
-- Run ionic capacitor add to add a native iOS or Android project using Capacitor       
-- Generate your app icon and splash screens using cordova-res --skip-config --copy     
-- Explore the Ionic docs for components, tutorials, and more: https://ion.link/docs    
-- Building an enterprise app? Ionic has Enterprise Support and Features:
-https://ion.link/enterprise-edition
+☐ Fazer compras     [EDITAR] [EXCLUIR]
+☑ Fazer deveres     [EDITAR] [EXCLUIR]
+  [____________]    [SALVAR] [CANCELAR]   <- linha em modo de edição
 ```
+
+### Arquivos alterados
+
+| Arquivo | Alteração |
+|---|---|
+| `src/app/todo.service.ts` | Métodos `editTodo()` (Update) e `deleteTodo()` (Delete); `getTodos()` passou a devolver uma cópia da lista, para o componente não alterar o estado do serviço por acidente. |
+| `src/app/home/home.page.ts` | Estado de edição (`editId` / `editTitle`) com `startEdit()`, `saveEdit()` e `cancelEdit()`; `confirmDelete()` usando o `AlertController`; registro dos ícones com `addIcons()`. |
+| `src/app/home/home.page.html` | Botões `EDITAR` / `EXCLUIR` / `SALVAR` / `CANCELAR`, alternância entre modo de leitura e modo de edição, atalhos de teclado e mensagem para lista vazia. |
+| `src/app/home/home.page.scss` | Estilo da mensagem de lista vazia e ajuste do tamanho dos botões. |
+
+
